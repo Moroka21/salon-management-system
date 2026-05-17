@@ -1,43 +1,180 @@
-# Salon Management System
+# J&J Beauty Bar Salon Management System
 
-Full-stack salon management system with React, Material UI, Express, Sequelize, MySQL, JWT auth, appointments, dashboards, payments, invoices, notifications, FAQ, inventory, and suppliers.
+A full-stack **Salon Management System** developed for **J&J Beauty Bar** to streamline salon operations such as appointment booking, customer management, staff scheduling, service management, payment processing, and receipt generation.
 
-## Folder Structure
+This system provides separate dashboards for **Admin**, **Staff**, and **Customers**, with secure authentication and a modern responsive user interface.
 
-- `Backend/` - Express MVC API
-- `Backend/models/` - Sequelize models and associations
-- `Backend/controllers/` - Request handlers
-- `Backend/routes/` - REST routes
-- `Backend/services/` - Notification and invoice services
-- `Backend/validators/` - `express-validator` rules
-- `frontend/` - Vite React app with Material UI, Axios, Formik, Yup, and Recharts
+---
 
-## Backend Setup
+## Salon Information
 
-1. Create MySQL database:
+**Business Name:** J&J Beauty Bar  
+**Contact Persons:** Rachidi Jane / Rachidi Jessica  
+**Phone Numbers:** 0639390931 / 0608185119  
+**Email Address:** mamcyrachidi@icloud.com  
+**Physical Address:** Strydkraal B Mabokotswane House 20057
+
+---
+
+## Features
+
+### Customer Features
+- Create customer account
+- Secure login/logout
+- Browse hairstyle and nail style services with pictures
+- Book appointments
+- View booking status
+- View payment status
+- Download and print professional receipts
+- Receive notifications
+- Manage personal profile
+
+### Admin Features
+- Secure admin-only dashboard
+- Approve or reject bookings
+- Approve cash payments
+- Register customers
+- Register staff members
+- Add, edit, and delete hairstyles
+- Add, edit, and delete nail styles
+- Manage services and pricing
+- View analytics dashboard
+- View popular services
+- Manage receipts
+- Manage FAQs
+- Manage notifications
+
+### Staff Features
+- View assigned appointments
+- View schedules
+- Update appointment progress
+- Access customer booking details
+
+---
+
+## System Rules
+
+- Bookings allowed only between **08:00 AM and 06:00 PM**
+- Maximum **2 simultaneous bookings** allowed per timeslot
+- All bookings require **admin approval**
+- Cash payments require **admin confirmation**
+- Customer accounts are automatically assigned the **Customer** role
+- Only the pre-created admin account can access the admin dashboard
+
+---
+
+## Default Admin Login
+
+Use these credentials to access the admin dashboard:
+
+**Email:** `mamcyrachidi@icloud.com`  
+**Password:** `Mokgaga@11`
+
+---
+
+## Tech Stack
+
+### Frontend
+- **React**
+- **Material UI**
+- **Axios**
+- **Formik**
+- **Yup**
+- **Recharts**
+- **Vite**
+
+### Backend
+- **Node.js**
+- **Express.js**
+- **Sequelize ORM**
+- **JWT Authentication**
+- **bcrypt**
+
+### Database
+- **MySQL**
+
+---
+
+## Project Structure
+
+```bash
+salon_system/
+│
+├── Backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── services/
+│   ├── validators/
+│   └── server.js
+│
+├── frontend/
+│   ├── src/
+│   └── public/
+│
+└── README.md
+```
+
+---
+
+## Installation Guide
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/salon-management-system.git
+cd salon-management-system
+```
+
+---
+
+### 2. Setup Database
+
+Open MySQL and create the database:
 
 ```sql
 CREATE DATABASE salon_system CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
-2. Install backend dependencies:
+---
+
+### 3. Backend Setup
 
 ```bash
 cd Backend
 npm install
 ```
 
-3. Create `.env` from `.env.example` and set `JWT_SECRET`, database credentials, and optional SMTP values.
+Create a `.env` file and add:
 
-4. Start the API:
+```env
+PORT=5000
+DB_NAME=salon_system
+DB_USER=your_mysql_username
+DB_PASSWORD=your_mysql_password
+DB_HOST=localhost
+JWT_SECRET=your_secret_key
+```
+
+Run backend:
 
 ```bash
 npm run dev
 ```
 
-The API runs at `http://localhost:5000/api`.
+Backend runs on:
 
-## Frontend Setup
+```text
+http://localhost:5000
+```
+
+---
+
+### 4. Frontend Setup
+
+Open a new terminal:
 
 ```bash
 cd frontend
@@ -45,138 +182,48 @@ npm install
 npm run dev
 ```
 
-The React app runs at `http://localhost:5173`.
+Frontend runs on:
 
-## Database Schema
-
-Sequelize creates the schema from models when `DB_ALTER=true`. Main tables:
-
-- `users`: Admin, Staff, Customer accounts with bcrypt-hashed passwords.
-- `services`: Salon services with price and duration.
-- `appointments`: Links customer, staff, and service. Tracks `Booked`, `Completed`, `Cancelled`.
-- `payments`: Payment records linked to appointments.
-- `invoices`: Invoice records linked to payments and appointments with immutable JSON snapshot.
-- `notifications`: In-app/email notification records.
-- `products`, `inventories`, `suppliers`, `product_suppliers`: Inventory and supplier management.
-- `faqs`: Published FAQ content.
-
-## Example Invoice JSON
-
-```json
-{
-  "invoiceNumber": "INV-2026-000001",
-  "subtotal": 450,
-  "tax": 0,
-  "total": 450,
-  "billingSnapshot": {
-    "customer": { "id": 3, "name": "Ava Smith", "email": "ava@example.com" },
-    "staff": { "id": 2, "name": "Mia Stylist" },
-    "service": { "id": 1, "name": "Silk Press", "price": 450 },
-    "appointment": { "id": 10, "startTime": "2026-05-01T10:00:00.000Z" },
-    "payment": { "id": 7, "method": "Card", "reference": "POS-123" }
-  }
-}
+```text
+http://localhost:5173
 ```
 
-## Postman Examples
+---
 
-Set Postman variable `baseUrl` to `http://localhost:5000/api` and `token` to the login response token.
+## Database Tables
 
-### Register
+The system uses the following main tables:
 
-`POST {{baseUrl}}/auth/register`
+- **Users**
+- **Appointments**
+- **Services**
+- **Payments**
+- **Receipts**
+- **Notifications**
+- **FAQs**
+- **Reviews**
+- **Inventory**
+- **Suppliers**
 
-```json
-{
-  "firstName": "Ava",
-  "lastName": "Smith",
-  "email": "ava@example.com",
-  "phone": "+27111222333",
-  "password": "StrongPass1!",
-  "role": "Customer"
-}
-```
+---
 
-### Login
+## Security Features
 
-`POST {{baseUrl}}/auth/login`
+- JWT authentication
+- Password hashing using bcrypt
+- Protected admin routes
+- Role-based access control
+- Form validation on frontend and backend
+- Duplicate account prevention
 
-```json
-{
-  "email": "ava@example.com",
-  "password": "StrongPass1!"
-}
-```
+---
 
-### Create Service
+## Author
 
-`POST {{baseUrl}}/services`
+**Mohomotsi Mphahlele**
 
-Headers: `Authorization: Bearer {{token}}`
+---
 
-```json
-{
-  "name": "Silk Press",
-  "description": "Wash, blowout, and press",
-  "durationMinutes": 90,
-  "price": 450
-}
-```
+## Project Purpose
 
-### Book Appointment
-
-`POST {{baseUrl}}/appointments`
-
-Headers: `Authorization: Bearer {{token}}`
-
-```json
-{
-  "staffId": 2,
-  "serviceId": 1,
-  "startTime": "2026-05-01T10:00:00.000Z",
-  "notes": "Prefer a quiet appointment"
-}
-```
-
-### Update Appointment Status
-
-`PATCH {{baseUrl}}/appointments/1/status`
-
-```json
-{
-  "status": "Completed"
-}
-```
-
-### Dashboard Stats
-
-`GET {{baseUrl}}/dashboard/stats`
-
-### Record Payment
-
-`POST {{baseUrl}}/payments`
-
-```json
-{
-  "appointmentId": 1,
-  "amount": 450,
-  "method": "Card",
-  "reference": "POS-123"
-}
-```
-
-### Create Product
-
-`POST {{baseUrl}}/inventory/products`
-
-```json
-{
-  "name": "Shampoo 500ml",
-  "sku": "SHAMP-500",
-  "unitCost": 55,
-  "retailPrice": 120,
-  "quantity": 20,
-  "reorderLevel": 5,
-  "supplierIds": [1]
-}
-```
+This project was developed to digitize and automate salon operations for **J&J Beauty Bar**, improving booking efficiency, customer experience, payment tracking, and administrative management.
