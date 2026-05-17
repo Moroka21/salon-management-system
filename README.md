@@ -124,7 +124,7 @@ salon_system/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/salon-management-system.git
+git clone https://github.com/Moroka21/salon-management-system.git
 cd salon-management-system
 ```
 
