@@ -1,0 +1,28 @@
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #f6f7fb;
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .receipt-actions {
+    display: none !important;
+  }
+
+  .receipt-paper {
+    box-shadow: none !important;
+    border: 0 !important;
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+  }
+}

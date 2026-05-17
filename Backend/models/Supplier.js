@@ -1,0 +1,17 @@
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/db');
+
+const Supplier = sequelize.define(
+  'Supplier',
+  {
+    id: { type: DataTypes.INTEGER.UNSIGNED, autoIncrement: true, primaryKey: true },
+    name: { type: DataTypes.STRING(140), allowNull: false },
+    contactName: { type: DataTypes.STRING(120), allowNull: true },
+    email: { type: DataTypes.STRING(160), allowNull: true, validate: { isEmail: true } },
+    phone: { type: DataTypes.STRING(30), allowNull: true },
+    address: { type: DataTypes.TEXT, allowNull: true },
+  },
+  { tableName: 'suppliers' }
+);
+
+module.exports = Supplier;
